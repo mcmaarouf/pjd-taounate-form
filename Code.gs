@@ -16,8 +16,6 @@ const FIELDS = [
   ['رقم الهاتف', 'phone'],
   ['البريد الإلكتروني', 'email'],
   ['المستوى الدراسي', 'educationLevel'],
-  ['التخصص', 'specialty'],
-  ['اللغات', 'languages'],
   ['العضوية في الحزب', 'partyMember'],
   ['الجمعيات', 'associations'],
   ['تجارب سابقة', 'experience']
