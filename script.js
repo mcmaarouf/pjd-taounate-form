@@ -16,7 +16,7 @@ const communesData = {
 };
 
 // استبدل الرابط أدناه برابط Google Apps Script الخاص بك
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzpnRjCyZKuLD65SiGDkcQRcsmsmkkA9GlhH71CFjjfHka-bcoQl2Me5BYoW96Fxh_q/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz7nvOQfRUyb_sMVTxsQgIB5oDSHa7bo8mbEX3JqPiJKky9jykQU01-6cHF4JAj9mo0/exec';
 
 const form = document.getElementById('taounateForm');
 const dairahSelect = document.getElementById('dairah');
