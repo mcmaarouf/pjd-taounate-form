@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة طلب العضوية - العدالة والتنمية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <img src="logo2.png" alt="العدالة والتنمية" class="logo">
+</header>
+
+<section class="hero">
+    <h1>استمارة طلب العضوية</h1>
+    <p>هذه الاستمارة خاضعة لمقتضيات القانون رقم 09.08 المتعلق بحماية الأشخاص الذاتيين تجاه معالجة المعطيات ذات الطابع الشخصي</p>
+</section>
+
+<main class="card">
+    <form id="taounateForm" novalidate>
+
+        <h3 class="section-title">المعلومات الشخصية</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label for="fullName">الاسم الكامل <span class="req">*</span></label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="cin">رقم البطاقة الوطنية <span class="req">*</span></label>
+                <input type="text" id="cin" name="cin" required>
+            </div>
+            <div class="form-group">
+                <label for="birthDate">تاريخ الازدياد <span class="req">*</span></label>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+            <div class="form-group">
+                <label for="job">المهنة</label>
+                <input type="text" id="job" name="job">
+            </div>
+        </div>
+
+        <h3 class="section-title">العنوان والسكن</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label for="region">الجهة <span class="req">*</span></label>
+                <select id="region" name="region" required>
+                    <option value="فاس مكناس" selected>فاس مكناس</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="province">الإقليم / العمالة <span class="req">*</span></label>
+                <select id="province" name="province" required>
+                    <option value="تاونات" selected>تاونات</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dairah">الدائرة <span class="req">*</span></label>
+                <select id="dairah" name="dairah" required>
+                    <option value="">-- اختر الدائرة --</option>
+                    <option value="تيسة تاونات">دائرة تيسة تاونات</option>
+                    <option value="القرية غفساي">دائرة القرية غفساي</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="commune">  الجماعة <span class="req">*</span></label>
+                <select id="commune" name="commune" required>
+                    <option value="">-- اختر الدائرة أولاً --</option>
+                </select>
+            </div>
+        </div>
+
+        <h3 class="section-title">معلومات الاتصال</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label for="phone">رقم الهاتف <span class="req">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="06xxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني <span class="req">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+        </div>
+
+        <h3 class="section-title">المسار الدراسي والجمعوي</h3>
+        <div class="grid">
+            <div class="form-group">
+                <label for="educationLevel">المستوى الدراسي <span class="req">*</span></label>
+                <select id="educationLevel" name="educationLevel" required>
+                    <option value="">-- المستوى --</option>
+                    <option value="بدون">بدون</option>
+                    <option value="ابتدائي">ابتدائي</option>
+                    <option value="إعدادي">إعدادي</option>
+                    <option value="ثانوي">ثانوي</option>
+                    <option value="باكالوريا">باكالوريا</option>
+                    <option value="جامعي (إجازة)">جامعي (إجازة)</option>
+                    <option value="ماستر أو دكتوراه">ماستر أو دكتوراه</option>
+                    <option value="آخر">آخر</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="box">
+            <label>العضوية في حزب العدالة والتنمية <span class="req">*</span> :</label>
+            <div class="checks">
+                <label class="check"><input type="radio" name="partyMember" value="نعم" checked> نعم</label>
+                <label class="check"><input type="radio" name="partyMember" value="لا"> لا</label>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label for="associations">الجمعيات المنتمي إليها (اختياري)</label>
+            <textarea id="associations" name="associations" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="experience">تجارب شبابية أو حزبية سابقة (اختياري)</label>
+            <textarea id="experience" name="experience" rows="3"></textarea>
+        </div>
+
+
+
+
+
+
+
+        <div class="box">
+            <label>التحقق الأمني <span class="req">*</span></label>
+            <div class="captcha-row">
+                <canvas id="captchaCanvas" width="110" height="38"></canvas>
+                <button type="button" id="captchaRefresh" class="icon-btn" title="تحديث" aria-label="تحديث الرمز">&#x21bb;</button>
+                <input type="text" id="captchaInput" placeholder="CODE" autocomplete="off" maxlength="5">
+            </div>
+            <small class="hint">المرجو إدخال الرموز الظاهرة في الصورة</small>
+        </div>
+
+
+
+        <label class="check consent">
+            <input type="checkbox" id="privacy" required>
+            <span>أوافق على <a href="#" target="_blank">الشروط وسياسة الخصوصية</a> المتعلقة بحماية المعطيات. <span class="req">*</span></span>
+        </label>
+
+        <button type="submit" id="submitBtn">تأكيد وإرسال</button>
+        <div id="loading">جاري إرسال البيانات، المرجو الانتظار لحظة...</div>
+    </form>
+</main>
+
+<footer class="footer">
+    <span class="copy">العدالة والتنمية © <span id="year">2026</span> جميع الحقوق محفوظة</span>
+    <img src="logo.png" alt="" class="footer-logo">
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

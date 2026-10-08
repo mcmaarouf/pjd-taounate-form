@@ -1,0 +1,196 @@
+:root {
+    --blue: #0b5cad;
+    --blue-dark: #174080;
+    --orange: #f5a623;
+    --border: #d9dee5;
+    --bg: #fbfaf6;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    background-image: radial-gradient(circle, #e4e6d2 1.5px, transparent 1.6px);
+    background-size: 40px 40px;
+}
+
+/* ---------- الشريط العلوي ---------- */
+.topbar {
+    background: #fff;
+    min-height: 63px;
+    padding: 8px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo { display: block; margin: 0 auto; height: 100px; width: auto; max-width: 50%; object-fit: contain; }
+
+/* ---------- الهيدر ---------- */
+.hero {
+    background-color: var(--blue-dark);
+    background-image: linear-gradient(rgba(23, 64, 128, .88), rgba(23, 64, 128, .88)), url('images/bg.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: #fff;
+    padding: 28px 20px 24px;
+}
+.hero h1 {
+    margin: 0 0 12px;
+    color: var(--orange);
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 800;
+}
+.hero p {
+    margin: 0 auto;
+    max-width: 720px;
+    font-size: clamp(11px, 2.4vw, 13px);
+    line-height: 1.8;
+}
+
+/* ---------- البطاقة ---------- */
+.card {
+    width: calc(100% - 32px);
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px 26px 28px;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+}
+
+.section-title {
+    margin: 22px 0 16px;
+    padding-bottom: 8px;
+    color: var(--blue);
+    font-size: 16px;
+    font-weight: 700;
+    border-bottom: 1px solid #e6e9ee;
+}
+.section-title:first-child { margin-top: 10px; }
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+}
+
+.form-group { margin-bottom: 14px; }
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+}
+.req { color: #d9534f; }
+
+input[type="text"], input[type="tel"], input[type="email"], input[type="date"],
+select, textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 13px;
+}
+textarea { resize: vertical; min-height: 70px; }
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(11, 92, 173, .12);
+}
+input.invalid, select.invalid { border-color: #d9534f; }
+
+/* ---------- خانات الاختيار ---------- */
+.checks { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.check input { width: auto; margin: 0; accent-color: var(--blue); }
+
+.box {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    background: #f6f8fa;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+.box > label { margin-bottom: 8px; }
+
+/* ---------- الكابتشا ---------- */
+.captcha-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+#captchaCanvas { border: 1px solid var(--border); border-radius: 4px; background: #eef3f9; }
+.icon-btn {
+    width: 34px; height: 34px;
+    margin: 0; padding: 0;
+    background: #fff; color: #333;
+    border: 1px solid var(--border);
+    font-size: 16px;
+}
+.icon-btn:hover { background: #f0f0f0; }
+#captchaInput { width: 110px; text-align: center; letter-spacing: 2px; }
+.hint { display: block; margin-top: 6px; font-size: 11px; color: #888; }
+
+.consent { margin: 6px 0 4px; align-items: flex-start; }
+.consent a { color: var(--blue); font-weight: 700; }
+
+/* ---------- الزر ---------- */
+button[type="submit"] {
+    width: 100%;
+    margin-top: 22px;
+    padding: 12px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+}
+button[type="submit"]:hover { background: #094a8c; }
+button { font-family: inherit; cursor: pointer; border-radius: 4px; }
+
+#loading { display: none; margin-top: 10px; text-align: center; color: var(--blue); font-weight: 700; }
+
+/* ---------- الفوتر ---------- */
+.footer {
+    margin-top: auto;
+    padding: 14px 6%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.footer-logo { height: 60px; filter: brightness(0) invert(1); }
+
+/* ---------- التجاوب: هاتف ---------- */
+@media (max-width: 640px) {
+    .card { margin: 24px auto; padding: 16px 16px 22px; }
+    .grid { grid-template-columns: 1fr; }
+    .footer { padding: 12px 16px; }
+    .topbar { padding: 8px 16px; }
+    .logo { display: block; margin: 0 auto; height: 100px; width: auto; max-width: 50%; object-fit: contain; }
+}
