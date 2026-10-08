@@ -1,3 +1,6 @@
+// استبدل الرابط أدناه برابط Google Apps Script الخاص بك
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz7nvOQfRUyb_sMVTxsQgIB5oDSHa7bo8mbEX3JqPiJKky9jykQU01-6cHF4JAj9mo0/exec';
+
 // بيانات الجماعات لكل دائرة (دائرتان فقط)
 const communesData = {
     "تيسة تاونات": [
@@ -15,32 +18,147 @@ const communesData = {
     ]
 };
 
-// استبدل الرابط أدناه برابط Google Apps Script الخاص بك
-const scriptURL = 'https://script.google.com/macros/s/AKfycbz7nvOQfRUyb_sMVTxsQgIB5oDSHa7bo8mbEX3JqPiJKky9jykQU01-6cHF4JAj9mo0/exec';
+const OTHER_LABEL = 'أخرى (غير موجودة في اللائحة)';
 
 const form = document.getElementById('taounateForm');
 const dairahSelect = document.getElementById('dairah');
-const communeSelect = document.getElementById('commune');
+const searchInput = document.getElementById('communeSearch');
+const hiddenCommune = document.getElementById('commune');
+const list = document.getElementById('communeList');
+const otherWrap = document.getElementById('otherWrap');
+const otherInput = document.getElementById('otherCommune');
 const submitBtn = document.getElementById('submitBtn');
 const loading = document.getElementById('loading');
 const canvas = document.getElementById('captchaCanvas');
 const captchaInput = document.getElementById('captchaInput');
+
 let captchaCode = '';
+let isOther = false;
+let activeIndex = -1;
+let currentItems = [];
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ---------- الجماعات ---------- */
-function updateCommunes() {
-    const selected = dairahSelect.value;
-    communeSelect.innerHTML = '<option value="">-- اختر الجماعة --</option>';
-    (communesData[selected] || []).forEach(name => {
-        const option = document.createElement('option');
-        option.value = name;
-        option.textContent = name;
-        communeSelect.appendChild(option);
-    });
+/* ---------- البحث عن الجماعة ---------- */
+// توحيد الحروف لتسهيل البحث (أ إ آ = ا ، ة = ه ، ى = ي ، حذف التشكيل)
+const norm = s => s
+    .replace(/[\u064B-\u0652\u0640]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ة/g, 'ه')
+    .replace(/ى/g, 'ي')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+
+function closeList() {
+    list.hidden = true;
+    activeIndex = -1;
 }
-dairahSelect.addEventListener('change', updateCommunes);
+
+function resetCommune() {
+    searchInput.value = '';
+    hiddenCommune.value = '';
+    otherInput.value = '';
+    isOther = false;
+    otherWrap.hidden = true;
+    searchInput.classList.remove('invalid');
+    otherInput.classList.remove('invalid');
+    closeList();
+    const hasDairah = !!communesData[dairahSelect.value];
+    searchInput.disabled = !hasDairah;
+    searchInput.placeholder = hasDairah ? 'اكتب للبحث عن الجماعة...' : 'اختر الدائرة أولاً';
+}
+
+function addItem(text, className, value) {
+    const li = document.createElement('li');
+    li.textContent = text;
+    li.className = className;
+    if (value !== undefined) li.dataset.value = value;
+    list.appendChild(li);
+}
+
+function renderList() {
+    const q = norm(searchInput.value);
+    currentItems = (communesData[dairahSelect.value] || []).filter(n => norm(n).includes(q));
+    list.innerHTML = '';
+    currentItems.forEach(n => addItem(n, 'opt', n));
+    if (!currentItems.length) addItem('لا توجد نتائج مطابقة', 'empty');
+    addItem(OTHER_LABEL, 'opt other', OTHER_LABEL);
+    activeIndex = -1;
+    list.hidden = false;
+}
+
+function choose(value) {
+    if (value === OTHER_LABEL) {
+        isOther = true;
+        hiddenCommune.value = '';
+        searchInput.value = 'أخرى';
+        searchInput.classList.remove('invalid');
+        otherWrap.hidden = false;
+        otherInput.focus();
+    } else {
+        isOther = false;
+        hiddenCommune.value = value;
+        searchInput.value = value;
+        searchInput.classList.remove('invalid');
+        otherWrap.hidden = true;
+        otherInput.value = '';
+    }
+    closeList();
+}
+
+function highlight(opts) {
+    opts.forEach((li, i) => li.classList.toggle('active', i === activeIndex));
+    if (opts[activeIndex]) opts[activeIndex].scrollIntoView({ block: 'nearest' });
+}
+
+dairahSelect.addEventListener('change', resetCommune);
+
+searchInput.addEventListener('focus', renderList);
+searchInput.addEventListener('click', renderList);
+searchInput.addEventListener('input', () => {
+    isOther = false;
+    hiddenCommune.value = '';
+    otherWrap.hidden = true;
+    renderList();
+});
+
+// mousedown (مع preventDefault) باش ما يضيعش التركيز قبل الاختيار
+list.addEventListener('mousedown', e => {
+    e.preventDefault();
+    const li = e.target.closest('li.opt');
+    if (li) choose(li.dataset.value);
+});
+
+searchInput.addEventListener('keydown', e => {
+    const opts = [...list.querySelectorAll('li.opt')];
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (list.hidden) renderList();
+        const all = [...list.querySelectorAll('li.opt')];
+        if (!all.length) return;
+        activeIndex = e.key === 'ArrowDown'
+            ? (activeIndex + 1) % all.length
+            : (activeIndex - 1 + all.length) % all.length;
+        highlight(all);
+    } else if (e.key === 'Enter' && !list.hidden) {
+        e.preventDefault();
+        const target = activeIndex >= 0 ? opts[activeIndex] : (currentItems.length ? opts[0] : null);
+        if (target) choose(target.dataset.value);
+    } else if (e.key === 'Escape') {
+        closeList();
+    }
+});
+
+searchInput.addEventListener('blur', () => {
+    if (!isOther && !hiddenCommune.value) {
+        const match = (communesData[dairahSelect.value] || [])
+            .find(n => norm(n) === norm(searchInput.value));
+        if (match) choose(match);
+        else searchInput.value = '';
+    }
+    closeList();
+});
 
 /* ---------- التحقق الأمني (واجهة فقط) ---------- */
 function drawCaptcha() {
@@ -73,9 +191,8 @@ document.getElementById('captchaRefresh').addEventListener('click', () => {
     drawCaptcha();
     captchaInput.value = '';
 });
-drawCaptcha();
 
-/* ---------- الإرسال ---------- */
+/* ---------- التحقق والإرسال ---------- */
 function validate() {
     let ok = true;
     form.querySelectorAll('[required]').forEach(el => {
@@ -83,8 +200,16 @@ function validate() {
         el.classList.toggle('invalid', bad);
         if (bad) ok = false;
     });
+
+    // الجماعة: إما من اللائحة أو مكتوبة يدويا (أخرى)
+    const otherBad = isOther && !otherInput.value.trim();
+    const listBad = !isOther && !hiddenCommune.value;
+    searchInput.classList.toggle('invalid', listBad);
+    otherInput.classList.toggle('invalid', otherBad);
+    if (otherBad || listBad) ok = false;
+
     if (!ok) {
-        alert('المرجو ملء جميع الحقول الإجبارية والموافقة على الشروط.');
+        alert('المرجو ملء جميع الحقول الإجبارية (واختيار الجماعة) والموافقة على الشروط.');
         return false;
     }
     if (captchaInput.value.trim().toUpperCase() !== captchaCode) {
@@ -101,6 +226,7 @@ form.addEventListener('submit', e => {
     if (!validate()) return;
 
     const data = new FormData(form);
+    data.set('commune', isOther ? otherInput.value.trim() : hiddenCommune.value);
     data.delete('languages');
     data.append('languages', [...form.querySelectorAll('input[name="languages"]:checked')]
         .map(c => c.value).join('، '));
@@ -112,7 +238,7 @@ form.addEventListener('submit', e => {
         .then(() => {
             alert('تم إرسال معلوماتك بنجاح، شكراً لك!');
             form.reset();
-            updateCommunes();
+            resetCommune();
             drawCaptcha();
         })
         .catch(error => {
@@ -124,3 +250,6 @@ form.addEventListener('submit', e => {
             loading.style.display = 'none';
         });
 });
+
+resetCommune();
+drawCaptcha();
