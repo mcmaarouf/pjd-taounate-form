@@ -44,9 +44,31 @@ body {
 }
 .hero h1 {
     margin: 0 0 12px;
-    color: var(--orange);
-    font-size: clamp(26px, 5vw, 36px);
-    font-weight: 800;
+    font-family: 'Lalezar', 'Cairo', sans-serif;   /* الخط: بدلو هنا */
+    font-weight: 400;
+    font-size: clamp(30px, 6vw, 46px);
+    line-height: 1.4;
+    /* لون متدرج يلمع */
+    background: linear-gradient(90deg, #f5a623 0%, #ffe39a 50%, #f5a623 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* الأنيميشن: دخول من الأعلى ثم لمعان مستمر */
+    animation: titleIn .9s ease-out both, shine 4s linear 1s infinite;
+}
+.hero p { animation: titleIn .9s ease-out .3s both; }
+
+@keyframes titleIn {
+    from { opacity: 0; transform: translateY(-20px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+}
+@keyframes shine {
+    to { background-position: -200% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero h1, .hero p { animation: none; }
 }
 .hero p {
     margin: 0 auto;
