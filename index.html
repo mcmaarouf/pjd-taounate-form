@@ -7,8 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
-
 </head>
 <body>
 
@@ -67,10 +65,16 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="commune">  الجماعة <span class="req">*</span></label>
-                <select id="commune" name="commune" required>
-                    <option value="">-- اختر الدائرة أولاً --</option>
-                </select>
+                <label for="communeSearch">الجماعة <span class="req">*</span></label>
+                <div class="combo-box">
+                    <input type="text" id="communeSearch" autocomplete="off" placeholder="اختر الدائرة أولاً" disabled>
+                    <input type="hidden" id="commune" name="commune">
+                    <ul id="communeList" class="combo-list" hidden></ul>
+                </div>
+            </div>
+            <div class="form-group full" id="otherWrap" hidden>
+                <label for="otherCommune">اسم الجماعة <span class="req">*</span></label>
+                <input type="text" id="otherCommune" placeholder="اكتب اسم الجماعة">
             </div>
         </div>
 
@@ -82,7 +86,7 @@
             </div>
             <div class="form-group">
                 <label for="email">البريد الإلكتروني <span class="req"></span></label>
-                <input type="email" id="email" name="email" >
+                <input type="email" id="email" name="email">
             </div>
         </div>
 
@@ -102,9 +106,7 @@
                     <option value="آخر">آخر</option>
                 </select>
             </div>
-
         </div>
-
 
         <div class="box">
             <label>العضوية في حزب العدالة والتنمية <span class="req">*</span> :</label>
@@ -113,9 +115,6 @@
                 <label class="check"><input type="radio" name="partyMember" value="لا"> لا</label>
             </div>
         </div>
-
-
-
 
         <div class="form-group">
             <label for="associations">الجمعيات المنتمي إليها (اختياري)</label>
@@ -127,12 +126,6 @@
             <textarea id="experience" name="experience" rows="3"></textarea>
         </div>
 
-
-
-
-
-
-
         <div class="box">
             <label>التحقق الأمني <span class="req">*</span></label>
             <div class="captcha-row">
@@ -142,8 +135,6 @@
             </div>
             <small class="hint">المرجو إدخال الرموز الظاهرة في الصورة</small>
         </div>
-
-
 
         <label class="check consent">
             <input type="checkbox" id="privacy" required>
