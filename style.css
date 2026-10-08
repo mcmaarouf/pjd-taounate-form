@@ -194,3 +194,19 @@ button { font-family: inherit; cursor: pointer; border-radius: 4px; }
     .topbar { padding: 8px 16px; }
     .logo { display: block; margin: 0 auto; height: 100px; width: auto; max-width: 50%; object-fit: contain; }
 }
+
+/* ---------- البحث عن الجماعة ---------- */
+.full { grid-column: 1 / -1; }
+.combo-box { position: relative; }
+.combo-list {
+    position: absolute; top: 100%; right: 0; left: 0; z-index: 30;
+    margin: 3px 0 0; padding: 4px 0; list-style: none;
+    max-height: 220px; overflow-y: auto;
+    background: #fff; border: 1px solid var(--border); border-radius: 4px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+}
+.combo-list li { padding: 8px 12px; font-size: 13px; cursor: pointer; }
+.combo-list li.opt:hover, .combo-list li.opt.active { background: #eef4fb; color: var(--blue); }
+.combo-list li.empty { color: #888; cursor: default; font-size: 12px; }
+.combo-list li.other { color: var(--blue); font-weight: 700; border-top: 1px solid #e6e9ee; margin-top: 4px; }
+input:disabled { background: #f1f3f5; cursor: not-allowed; }
