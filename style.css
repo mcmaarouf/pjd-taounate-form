@@ -306,3 +306,47 @@ input:disabled { background: #f1f3f5; cursor: not-allowed; }
         min-width: 90px;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 640px) {
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* جعل البطاقة تلصق مع جوانب الشاشة وتأخذ العرض كاملاً */
+    .card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        box-shadow: none !important;
+        padding: 15px !important;
+    }
+
+    /* توسيع الهيدر والفوتر ليملأا العرض تماماً */
+    .hero {
+        width: 100% !important;
+        padding: 20px 10px !important;
+    }
+
+    .topbar, .footer {
+        width: 100% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
