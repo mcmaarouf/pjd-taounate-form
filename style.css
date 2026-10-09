@@ -232,3 +232,6 @@ button { font-family: inherit; cursor: pointer; border-radius: 4px; }
 .combo-list li.empty { color: #888; cursor: default; font-size: 12px; }
 .combo-list li.other { color: var(--blue); font-weight: 700; border-top: 1px solid #e6e9ee; margin-top: 4px; }
 input:disabled { background: #f1f3f5; cursor: not-allowed; }
+
+/* خانة مخفية لفخ البوتات */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
