@@ -235,11 +235,16 @@ form.addEventListener('submit', e => {
     loading.style.display = 'block';
 
     fetch(scriptURL, { method: 'POST', body: data })
-        .then(() => {
-            alert('تم إرسال معلوماتك بنجاح، شكراً لك!');
-            form.reset();
-            resetCommune();
-            drawCaptcha();
+        .then(r => r.json())
+        .then(res => {
+            if (res.result === 'success') {
+                alert('تم إرسال معلوماتك بنجاح، شكراً لك!');
+                form.reset();
+                resetCommune();
+                drawCaptcha();
+            } else {
+                alert(res.message || 'حدث خطأ أثناء الإرسال، المرجو المحاولة لاحقاً.');
+            }
         })
         .catch(error => {
             console.error('Error!', error.message);
