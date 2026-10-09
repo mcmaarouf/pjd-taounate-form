@@ -237,3 +237,72 @@ input:disabled { background: #f1f3f5; cursor: not-allowed; }
 
 /* خانة مخفية لفخ البوتات */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- تعديلات إضافية للتجاوب التام مع الشاشات الصغيرة (الهاتف) ---------- */
+@media (max-width: 640px) {
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* إلغاء الهوامش الجانبية للبطاقة لتأخذ عرض الشاشة بالكامل وبدون حدود حادة */
+    .card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 10px 0 !important;
+        padding: 12px 14px 18px !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* تصغير الهوامش والتغليف في الهيدر والفوتر ليتناسب مع الشاشة الصغيرة */
+    .hero {
+        padding: 20px 12px 18px !important;
+    }
+
+    .topbar {
+        padding: 6px 12px !important;
+        min-height: 50px;
+    }
+
+    .logo {
+        height: 70px !important;
+    }
+
+    .footer {
+        padding: 12px !important;
+        flex-direction: column;
+        text-align: center;
+        gap: 6px;
+    }
+
+    /* التأكد من أن جميع الحقول لا تتجاوز عرض الشاشة */
+    input, select, textarea, .box, button[type="submit"] {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* الكابتشا تتطابق مع الشاشة */
+    .captcha-row {
+        gap: 6px;
+    }
+    
+    #captchaInput {
+        flex: 1;
+        min-width: 90px;
+    }
+}
